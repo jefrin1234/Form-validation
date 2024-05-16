@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  
+
+  <link rel="stylesheet" href="style.css">
+
+  <title>Document</title>
+
+
+</head>
+<body>
+  
+  <h1>Sign up form</h1>
+  <form action="https://www.google.com/">
+        <p>
+          <label for="username">username <input type="text" id="username" onkeyup="validateName()"></label>
+          <span class="error" id="username-error"></span>
+        
+        </p>
+
+        <p>
+          <label for="email">Email <input type="email" id="email" onkeyup="validateEmail()"></label>
+          <span class="error" id="emailError"></span>
+        </p>
+
+        <p>
+          <label for="password">Password <input type="password" id="password" onkeyup="validatePassword()"></label>
+          <span class="error" id="password-error"></span>
+        </p>
+
+        <p>
+          <label for="repeat">repeat<input type="password" id="repeat"
+          onkeyup="validateRepeat()"></label>
+          <span class="error" id="repeat-error"></span>
+        </p>
+        <button type="submit" onclick="return validateForm()">Submit</button>
+        <span class="error" id="submit-error"></span>
+  </form>
+
+  <script>
+    
+
+    function validateName(){
+
+      const userName = document.getElementById('username').value;
+      const nameError = document.getElementById('username-error');
+     
+      if(userName.trim() == ''){
+        nameError.innerText = 'name cannot be blank';
+        return false;
+      }
+      else if(userName.length < 5){
+         nameError.innerText = 'cannot be less than 5 characters';
+         return false;
+      }
+      else{
+        nameError.innerText = '';
+        return true;
+      }
+}
+
+    function validateEmail(){
+   
+        const email = document.getElementById('email').value;
+         const emailError = document.getElementById('emailError');
+
+              if(email.trim() == ''){
+                emailError.innerText = 'this field is required';
+                return false;
+              }
+                 let regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+                 if(!regEx.test(email)){
+                 emailError.innerText = 'invalid email';
+                return false;
+              }
+              else{
+              emailError.innerText = '';
+              return true;
+   }
+}
+ 
+    function validatePassword(){
+      
+      const password = document.getElementById('password').value;
+      const passwordError = document.getElementById('password-error');
+        if(password.trim()== ''){
+          passwordError.innerText ='this field is required ' ;
+          return false;
+        }
+        else if(password.length <5 || password.length >10 ){
+          passwordError.innerText ='cannot be less than 5 letters or greater than 10 characters ' ;
+          return false;
+        }
+        else{
+          passwordError.innerText = '';
+          return true;
+        }
+    } 
+ 
+    function validateRepeat(){
+      const password = document.getElementById('password').value;
+      const repeatPassword = document.getElementById('repeat').value;
+      const repeatError = document.getElementById('repeat-error');
+
+       if(repeatPassword == ''){
+         repeatError.innerHTML = 'confirm your password'
+       }
+       else if(  password != repeatPassword){
+         repeatError.innerText = 'password do not match';
+         return false;
+       }
+       else{
+        repeatError.innerText = '';
+        return true;
+       }
+    }
+    
+    function validateForm(){
+
+      const submitError = document.getElementById('submit-error');
+      
+
+      if( !validateName() || !validateEmail() || !validatePassword() || !validateRepeat() ){
+        submitError.innerText = 'resolve the above errors';
+         return false;
+      }
+      else{
+        submitError.innerText = '';
+        return true;
+      }
+    }
+ 
+ 
+ </script>
+</body>
+</html>
